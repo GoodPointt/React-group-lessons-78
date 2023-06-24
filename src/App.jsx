@@ -1,5 +1,7 @@
 import React from "react";
 import reactLogo from "./assets/react.svg";
+import { SearchForm } from "./components/SearchForm/SearchForm";
+import { List } from "./components/List/List";
 
 const stories = [
   {
@@ -23,9 +25,12 @@ const stories = [
 function App() {
   return (
     <>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <a href="https://reactjs.org" target="_blank">
+        <img src={reactLogo} className="logo react" alt="React logo" />
+      </a>
+
+      <SearchForm />
+      <List stories={stories} />
     </>
   );
 }
