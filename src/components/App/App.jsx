@@ -10,32 +10,39 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem("searchTerm") || ""
   );
-  const [stories, setStories] = useState([
-    {
-      title: "React",
-      url: "https://reactjs.org/",
-      author: "Jordan Walke",
-      num_comments: 3,
-      points: 4,
-      objectID: 0,
-    },
-    {
-      title: "Redux",
-      url: "https://redux.js.org/",
-      author: "Dan Abramov, Andrew Clark",
-      num_comments: 2,
-      points: 5,
-      objectID: 1,
-    },
-  ]);
+  const [stories, setStories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("searchTerm", searchTerm);
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `https://hn.algolia.com/api/v1/search?query=${searchTerm}`
+        );
+        if (res.ok) {
+          setIsLoading(false);
+
+          return res.json();
+        }
+      } catch (error) {
+        setIsError(true);
+      }
+    };
+    fetchData()
+      .then((res) => {
+        localStorage.setItem("searchTerm", searchTerm);
+        setStories(res.hits);
+      })
+      .catch((error) => console.log(error));
   }, [searchTerm]);
 
   const filteredStories = () =>
-    stories.filter((story) =>
-      story.title.toLowerCase().includes(searchTerm.toLowerCase())
+    stories.filter(
+      (story) =>
+        story.title &&
+        story.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
   const handleRemoveStory = (id) =>
@@ -49,10 +56,17 @@ function App() {
     <StyledContainer>
       <StyledTitle>Hacker Stories</StyledTitle>
       <SearchForm setSearchTerm={setSearchTerm} />
+      {isError && "Something went wrong"}
+      {isLoading && "...loading"}
       {searchTerm && (
         <DisplayFilter searchTerm={searchTerm} reset={resetSearchTerm} />
       )}
-      <List stories={filteredStories()} handleRemoveStory={handleRemoveStory} />
+      {stories.length && (
+        <List
+          stories={filteredStories()}
+          handleRemoveStory={handleRemoveStory}
+        />
+      )}
     </StyledContainer>
   );
 }
