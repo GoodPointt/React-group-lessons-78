@@ -1,5 +1,9 @@
 import React from "react";
-import reactLogo from "./assets/react.svg";
+
+import { SearchForm } from "../SearchForm/SearchForm";
+import { List } from "../List/List";
+import { StyledContainer, StyledTitle } from "./App.styled";
+
 
 const stories = [
   {
@@ -22,11 +26,11 @@ const stories = [
 
 function App() {
   return (
-    <>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-    </>
+    <StyledContainer>
+      <StyledTitle>Hacker Stories</StyledTitle>
+       <SearchForm />
+      <List stories={stories} />
+    </StyledContainer>
   );
 }
 
