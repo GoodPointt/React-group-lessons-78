@@ -2,7 +2,8 @@ import { StyledButtonSmall } from "../../App/App.styled";
 import { StyledItem, StyledItemContent } from "./Item.styled";
 
 export const Item = ({
-  story: { title, url, author, num_comments, points },
+  story: { title, url, author, num_comments, points, objectID },
+  handleRemoveStory,
 }) => {
   return (
     <StyledItem>
@@ -13,7 +14,14 @@ export const Item = ({
       <StyledItemContent width="10%">{num_comments}</StyledItemContent>
       <StyledItemContent width="10%">{points}</StyledItemContent>
       <StyledItemContent width="10%">
-        <StyledButtonSmall type="button">Dismiss</StyledButtonSmall>
+        <StyledButtonSmall
+          type="button"
+          onClick={() => {
+            handleRemoveStory(objectID);
+          }}
+        >
+          Dismiss
+        </StyledButtonSmall>
       </StyledItemContent>
     </StyledItem>
   );
