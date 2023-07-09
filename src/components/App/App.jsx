@@ -3,6 +3,7 @@ import React from "react";
 import { SearchForm } from "../SearchForm/SearchForm";
 import { List } from "../List/List";
 import { StyledContainer, StyledTitle } from "./App.styled";
+import { useState } from "react";
 
 
 const stories = [
@@ -25,10 +26,11 @@ const stories = [
 ];
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('')
   return (
     <StyledContainer>
       <StyledTitle>Hacker Stories</StyledTitle>
-       <SearchForm />
+      <SearchForm setSearchTerm={setSearchTerm} />
       <List stories={stories} />
     </StyledContainer>
   );
