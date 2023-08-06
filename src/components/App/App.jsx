@@ -6,7 +6,7 @@ export const App = () => {
       <Header />
       <Section>
         <Container>
-          {/* <SearchForm onSubmit={this.handleSubmit} /> */}
+          <SearchForm />
           <TodoList />
         </Container>
       </Section>
