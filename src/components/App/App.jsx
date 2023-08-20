@@ -13,7 +13,7 @@ export const App = () => {
           <Route path={routes.OPTIONS} element={<Options />} />
         </Route>
 
-        <Route path='*' element={<Navigate to={routes.HOME} replace />} />
+        <Route path="*" element={<Navigate to={routes.HOME} replace />} />
       </Routes>
     </>
   );
