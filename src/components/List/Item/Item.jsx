@@ -1,5 +1,5 @@
-import { StyledButtonSmall } from "../../App/App.styled";
-import { StyledItem, StyledItemContent } from "./Item.styled";
+import { StyledButtonSmall } from '../../App/App.styled';
+import { StyledItem, StyledItemContent } from './Item.styled';
 
 export const Item = ({
   story: { title, url, author, num_comments, points, objectID },
